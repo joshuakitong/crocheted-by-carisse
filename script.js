@@ -9,10 +9,29 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach(section => observer.observe(section));
 
+const header = document.querySelector('header');
+const scrollBtn = document.getElementById('scrollToTop');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 let currentImages = [];
 let currentIndex = 0;
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 10) {
+    header.classList.add('scrolled');
+    document.getElementById('logo')?.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+    document.getElementById('logo')?.classList.remove('scrolled');
+  }
+});
+
+window.addEventListener('scroll', () => {
+  scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+});
+scrollBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 document.querySelectorAll('.gallery-item').forEach(item => {
 	item.addEventListener('click', () => {
@@ -29,6 +48,7 @@ document.querySelectorAll('.gallery-item img').forEach(img => {
 	img.addEventListener('click', () => {
 		lightbox.style.display = 'flex';
 		lightboxImg.src = img.src;
+		document.body.classList.add('no-scroll');
 	});
 });
 
