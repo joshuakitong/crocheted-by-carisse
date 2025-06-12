@@ -35,19 +35,14 @@ scrollBtn.addEventListener('click', () => {
 
 document.querySelectorAll('.gallery-item').forEach(item => {
 	item.addEventListener('click', () => {
-		const imageList = item.dataset.images.split(',');
+		const imageList = item.dataset.images
+			? item.dataset.images.split(',')
+			: [item.querySelector('img')?.src];
+
 		currentImages = imageList;
 		currentIndex = 0;
 		showImage();
 		lightbox.style.display = 'flex';
-		document.body.classList.add('no-scroll');
-	});
-});
-
-document.querySelectorAll('.gallery-item img').forEach(img => {
-	img.addEventListener('click', () => {
-		lightbox.style.display = 'flex';
-		lightboxImg.src = img.src;
 		document.body.classList.add('no-scroll');
 	});
 });
