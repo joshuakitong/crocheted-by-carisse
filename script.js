@@ -60,7 +60,16 @@ document.addEventListener('keydown', function (e) {
 });
 
 function showImage() {
-	lightboxImg.src = currentImages[currentIndex];
+  const prevBtn = document.querySelector('.nav.left');
+  const nextBtn = document.querySelector('.nav.right');
+
+  if (!currentImages || currentImages.length === 0) return;
+
+  lightboxImg.src = currentImages[currentIndex];
+
+  const showNav = currentImages.length > 1;
+  prevBtn.style.display = showNav ? 'block' : 'none';
+  nextBtn.style.display = showNav ? 'block' : 'none';
 }
 
 function closeLightbox() {
