@@ -1,6 +1,6 @@
 # Crocheted by Carisse
 
-A responsive, static portfolio and product landing page for showcasing handmade yarn mixes and crochet items.
+This is a responsive, static portfolio and product landing page for showcasing handmade yarn mixes and crochet items.
 
 Live: [View Site](https://joshuakitong.github.io/crocheted-by-carisse)
 
