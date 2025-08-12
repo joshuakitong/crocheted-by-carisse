@@ -37,11 +37,22 @@ export default function YarnMixes() {
   const [modalImages, setModalImages] = useState([]);
   const [modalIndex, setModalIndex] = useState(0);
   const [modalTitle, setModalTitle] = useState("");
+  const [modalGroup, setModalGroup] = useState(null);
 
-  const openModal = (images, index, title) => {
-    setModalImages(images);
-    setModalIndex(index);
-    setModalTitle(title);
+  const openModal = (group, index) => {
+    if (group === "ombre") {
+      const allOmbreImages = ombreMixes.flatMap(mix => mix.images);
+      setModalImages(allOmbreImages);
+      setModalIndex(index);
+      setModalTitle(ombreMixes[Math.floor(index / 2)].name);
+      setModalGroup("ombre");
+    } else if (group === "regular") {
+      const allRegularImages = regularMixes.map(mix => mix.image);
+      setModalImages(allRegularImages);
+      setModalIndex(index);
+      setModalTitle(regularMixes[index].name);
+      setModalGroup("regular");
+    }
     setModalOpen(true);
   };
   const closeModal = () => setModalOpen(false);
@@ -67,6 +78,14 @@ export default function YarnMixes() {
     }
   };
 
+  useEffect(() => {
+    if (modalGroup === "ombre") {
+      setModalTitle(ombreMixes[Math.floor(modalIndex / 2)].name);
+    } else if (modalGroup === "regular") {
+      setModalTitle(regularMixes[modalIndex].name);
+    }
+  }, [modalIndex, modalGroup]);
+
   return (
     <div className="py-16 px-4 max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold text-[#e94326] mb-10 text-center">
@@ -79,11 +98,11 @@ export default function YarnMixes() {
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-        {ombreMixes.map((mix) => (
+        {ombreMixes.map((mix, i) => (
           <div key={mix.name} className="relative flex justify-center items-center">
             <div
               className="group relative cursor-pointer transform transition-transform duration-300 hover:scale-105"
-              onClick={() => openModal(mix.images, 0, mix.name)}
+              onClick={() => openModal("ombre", i * 2)}
             >
               <img
                 src={`${import.meta.env.BASE_URL}${mix.images[1]}`}
@@ -111,11 +130,11 @@ export default function YarnMixes() {
         12 ply fine cotton | Sportweight (approximately 250g/1000m) | 290 PHP / 6 USD
       </p>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        {regularMixes.map((mix) => (
+        {regularMixes.map((mix, i) => (
           <div
             key={mix.name}
             className="relative cursor-pointer transform transition-transform duration-300 hover:scale-105"
-            onClick={() => openModal([mix.image], 0, mix.name)}
+            onClick={() => openModal("regular", i)}
           >
             <img
               src={`${import.meta.env.BASE_URL}${mix.image}`}
