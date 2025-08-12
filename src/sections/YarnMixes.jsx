@@ -62,7 +62,6 @@ export default function YarnMixes() {
   }, [modalOpen]);
 
   const handleBackdropClick = (e) => {
-    // close only if clicking backdrop (not modal content)
     if (e.target === e.currentTarget) {
       closeModal();
     }
