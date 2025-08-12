@@ -1,8 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  const linkClasses = (id) =>
+    activeSection === id
+      ? "text-[#e94326] font-semibold transition"
+      : "text-[#695c53] hover:text-[#e94326] font-semibold transition";
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-[#f2e8e4] shadow z-50">
@@ -16,22 +39,13 @@ export default function Navbar() {
         </a>
 
         <div className="hidden md:flex space-x-6">
-          <a
-            href="#yarn-mixes"
-            className="text-[#695c53] hover:text-[#e94326] font-semibold transition"
-          >
+          <a href="#yarn-mixes" className={linkClasses("yarn-mixes")}>
             Yarn Mixes
           </a>
-          <a
-            href="#crocheted-items"
-            className="text-[#695c53] hover:text-[#e94326] font-semibold transition"
-          >
+          <a href="#crocheted-items" className={linkClasses("crocheted-items")}>
             Crocheted Items
           </a>
-          <a
-            href="#where-to-buy"
-            className="text-[#695c53] hover:text-[#e94326] font-semibold transition"
-          >
+          <a href="#where-to-buy" className={linkClasses("where-to-buy")}>
             Where to Buy
           </a>
         </div>
@@ -52,21 +66,21 @@ export default function Navbar() {
           <a
             href="#yarn-mixes"
             onClick={() => setIsOpen(false)}
-            className="block text-[#695c53] hover:text-[#e94326] font-semibold transition"
+            className={linkClasses("yarn-mixes")}
           >
             Yarn Mixes
           </a>
           <a
             href="#crocheted-items"
             onClick={() => setIsOpen(false)}
-            className="block text-[#695c53] hover:text-[#e94326] font-semibold transition"
+            className={linkClasses("crocheted-items")}
           >
             Crocheted Items
           </a>
           <a
             href="#where-to-buy"
             onClick={() => setIsOpen(false)}
-            className="block text-[#695c53] hover:text-[#e94326] font-semibold transition"
+            className={linkClasses("where-to-buy")}
           >
             Where to Buy
           </a>
