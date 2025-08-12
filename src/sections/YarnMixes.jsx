@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import FullscreenModal from "../components/FullscreenModal";
 
 export default function YarnMixes() {
   const ombreMixes = [
@@ -87,8 +87,8 @@ export default function YarnMixes() {
   }, [modalIndex, modalGroup]);
 
   return (
-    <div className="py-16 px-4 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold text-[#e94326] mb-10 text-center">
+    <div className="pt-16 px-4 max-w-7xl mx-auto">
+      <h1 className="text-4xl font-bold text-[#e94326] mb-6 text-center">
         Fine Cotton Yarn Mixes
       </h1>
 
@@ -97,7 +97,7 @@ export default function YarnMixes() {
         12 ply fine cotton | Sportweight (approximately 350g/1400m) | 390 PHP / 8 USD
       </p>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-16 mb-12">
         {ombreMixes.map((mix, i) => (
           <div key={mix.name} className="relative flex justify-center items-center">
             <div
@@ -107,17 +107,17 @@ export default function YarnMixes() {
               <img
                 src={`${import.meta.env.BASE_URL}${mix.images[1]}`}
                 alt={mix.name}
-                className="rounded-xl rotate-2 absolute w-128 translate-x-6 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
+                className="rounded-xl rotate-2 absolute w-96 sm:w-128 translate-x-4 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
               />
               <img
                 src={`${import.meta.env.BASE_URL}${mix.images[0]}`}
                 alt={mix.name}
-                className="rounded-xl -rotate-2 w-128 -translate-x-6 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
+                className="rounded-xl -rotate-2 w-96 sm:w-128 -translate-x-4 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
               />
               <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-6 bg-black/50 rounded-lg text-white text-center py-1 text-sm font-semibold z-10">
                 {mix.name}
               </div>
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px] text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
                 Click to view in fullscreen
               </div>
             </div>
@@ -144,46 +144,23 @@ export default function YarnMixes() {
             <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-6 bg-black/50 rounded-lg text-white text-center py-1 text-sm font-semibold z-10">
               {mix.name}
             </div>
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px] text-white text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl">
               Click to view in fullscreen
             </div>
           </div>
         ))}
       </div>
 
-      {modalOpen && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50 p-4"
-          onClick={handleBackdropClick}
-        >
-          <div className="text-white rounded-xl py-2 px-4 bg-black/50 text-2xl font-bold mb-4">
-            {modalTitle}
-          </div>
-          <div className="relative flex items-center w-full max-w-4xl">
-            {modalImages.length > 1 && (
-              <button onClick={prevImage} className="absolute left-0 p-2 text-white cursor-pointer">
-                <ChevronLeft size={40} />
-              </button>
-            )}
-            <img
-              src={`${import.meta.env.BASE_URL}${modalImages[modalIndex]}`}
-              alt={modalTitle}
-              className="max-h-[80vh] mx-auto rounded-2xl"
-            />
-            {modalImages.length > 1 && (
-              <button onClick={nextImage} className="absolute right-0 p-2 text-white cursor-pointer">
-                <ChevronRight size={40} />
-              </button>
-            )}
-          </div>
-          <button
-            onClick={closeModal}
-            className="absolute top-4 right-4 text-white cursor-pointer"
-          >
-            <X size={32} />
-          </button>
-        </div>
-      )}
+      <FullscreenModal
+        open={modalOpen}
+        title={modalTitle}
+        images={modalImages}
+        index={modalIndex}
+        onClose={closeModal}
+        onPrev={prevImage}
+        onNext={nextImage}
+        onBackdropClick={handleBackdropClick}
+      />
     </div>
   );
 }
