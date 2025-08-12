@@ -6,7 +6,7 @@ import WhereToBuy from './sections/WhereToBuy';
 
 export default function App() {
   return (
-    <div className="bg-[#fff9f5] font-raleway">
+    <div className="background-texture font-raleway">
       <NavBar />
       <section id="home">
         <Hero />
