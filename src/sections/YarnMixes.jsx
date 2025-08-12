@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function YarnMixes() {
@@ -48,6 +48,26 @@ export default function YarnMixes() {
   const nextImage = () => setModalIndex((i) => (i + 1) % modalImages.length);
   const prevImage = () => setModalIndex((i) => (i - 1 + modalImages.length) % modalImages.length);
 
+  useEffect(() => {
+    if (!modalOpen) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [modalOpen]);
+
+  const handleBackdropClick = (e) => {
+    // close only if clicking backdrop (not modal content)
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  };
+
   return (
     <div className="py-16 px-4 max-w-7xl mx-auto">
       <h1 className="text-4xl font-bold text-[#e94326] mb-10 text-center">
@@ -79,6 +99,9 @@ export default function YarnMixes() {
               <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-6 bg-black/50 rounded-lg text-white text-center py-1 text-sm font-semibold z-10">
                 {mix.name}
               </div>
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+                Click to view in fullscreen
+              </div>
             </div>
           </div>
         ))}
@@ -103,13 +126,21 @@ export default function YarnMixes() {
             <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-6 bg-black/50 rounded-lg text-white text-center py-1 text-sm font-semibold z-10">
               {mix.name}
             </div>
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white text-lg font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-xl">
+              Click to view in fullscreen
+            </div>
           </div>
         ))}
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50 p-4">
-          <div className="text-white rounded-xl py-2 px-4 bg-black/50 text-2xl font-bold mb-4">{modalTitle}</div>
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50 p-4"
+          onClick={handleBackdropClick}
+        >
+          <div className="text-white rounded-xl py-2 px-4 bg-black/50 text-2xl font-bold mb-4">
+            {modalTitle}
+          </div>
           <div className="relative flex items-center w-full max-w-4xl">
             {modalImages.length > 1 && (
               <button onClick={prevImage} className="absolute left-0 p-2 text-white cursor-pointer">
@@ -127,7 +158,10 @@ export default function YarnMixes() {
               </button>
             )}
           </div>
-          <button onClick={closeModal} className="absolute top-4 right-4 text-white cursor-pointer">
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 text-white cursor-pointer"
+          >
             <X size={32} />
           </button>
         </div>
