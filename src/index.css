@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-* {
-  font-family: 'Raleway', sans-serif;
+@theme {
+  --font-raleway: "Raleway", sans-serif; 
 }
 
 html {

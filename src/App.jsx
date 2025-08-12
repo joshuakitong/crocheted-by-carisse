@@ -6,7 +6,7 @@ import WhereToBuy from './sections/WhereToBuy';
 
 export default function App() {
   return (
-    <>
+    <div className="bg-[#fff9f5] font-raleway">
       <NavBar />
       <section id="home">
         <Hero />
@@ -20,6 +20,6 @@ export default function App() {
       <section id="where-to-buy">
         <WhereToBuy />
       </section>
-    </>
-  )
+    </div>
+  );
 }
