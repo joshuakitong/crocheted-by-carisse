@@ -30,7 +30,8 @@ export default function CrochetedItems() {
 
   const closeModal = () => setModalOpen(false);
   const nextImage = () => setModalIndex((i) => (i + 1) % modalImages.length);
-  const prevImage = () => setModalIndex((i) => (i - 1 + modalImages.length) % modalImages.length);
+  const prevImage = () =>
+    setModalIndex((i) => (i - 1 + modalImages.length) % modalImages.length);
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -38,8 +39,12 @@ export default function CrochetedItems() {
     }
   };
 
-  const renderGrid = (items, group) => (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-12">
+  const renderGrid = (items, group, isLast) => (
+    <div
+      className={`grid grid-cols-1 xl:grid-cols-3 gap-8 ${
+        !isLast ? "mb-12" : ""
+      }`}
+    >
       {items.map((item, i) => (
         <div
           key={item.name}
@@ -68,12 +73,12 @@ export default function CrochetedItems() {
       <h2 className="text-2xl font-semibold text-[#eb9803] mb-2 text-center">
         by our beloved customers
       </h2>
-      {renderGrid(customers, "customers")}
+      {renderGrid(customers, "customers", false)}
 
       <h2 className="text-2xl font-semibold text-[#eb9803] mb-2 text-center">
         by Carisse
       </h2>
-      {renderGrid(carisse, "carisse")}
+      {renderGrid(carisse, "carisse", true)}
 
       <FullscreenModal
         open={modalOpen}

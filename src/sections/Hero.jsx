@@ -19,7 +19,7 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="flex-1 text-center md:text-left bg-white/80 p-6 md:p-8 rounded-xl shadow-md">
+        <div className="flex-1 text-center md:text-left bg-white/80 p-6 md:p-8 rounded-xl">
           <h2 className="text-2xl md:text-3xl font-bold text-[#e94326] leading-snug">
             Welcome Crocheters & Yarn Lovers
           </h2>
@@ -31,7 +31,7 @@ export default function Hero() {
             href="#yarn-mixes"
             className="inline-block mt-6 bg-[#e94326] text-white px-4 py-3 rounded-full font-semibold shadow hover:bg-[#c6321c] transition"
           >
-            See Our Yarn Mixes
+            See Yarn Mixes
           </a>
         </div>
       </div>

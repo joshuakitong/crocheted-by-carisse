@@ -15,7 +15,7 @@ export default function Navbar() {
           }
         });
       },
-      { rootMargin: "-50% 0px -50% 0px" }
+      { rootMargin: "-75% 0px -25% 0px" }
     );
 
     sections.forEach((section) => observer.observe(section));
