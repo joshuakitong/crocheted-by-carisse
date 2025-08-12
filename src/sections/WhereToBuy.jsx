@@ -1,7 +1,40 @@
 export default function WhereToBuy() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#fff9f5]">
-      <h1 className="text-4xl font-bold text-[#e94326]">Where to Buy Section</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen/2 text-center px-6 py-16">
+      <h1 className="text-4xl font-bold text-[#e94326] mb-4">Where to buy?</h1>
+      <p className="max-w-xl mb-8 text-[#695c53]">
+        You can buy our handmade yarn mixes or made-to-order crocheted items from our{" "}
+        <a
+          href="https://www.facebook.com/crochetedbycarisse"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#9cc9cc] hover:underline"
+        >
+          Facebook
+        </a>{" "}page. 
+        We regularly release new yarn mixes every 2-3 weeks.
+      </p>
+
+      <h2 className="text-3xl font-bold text-[#e94326] mb-4">Find more about us</h2>
+      <p className="max-w-xl text-[#695c53]">
+        You can find more about us and our products on our social media pages:{" "}
+        <a
+          href="https://www.facebook.com/crochetedbycarisse"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#9cc9cc] hover:underline"
+        >
+          Facebook
+        </a>{" "}|{" "}
+        <a
+          href="https://www.instagram.com/crochetedbycarisse"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#9cc9cc] hover:underline"
+        >
+          Instagram
+        </a>
+      </p>
     </div>
-  )
+  );
 }
