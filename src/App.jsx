@@ -20,6 +20,9 @@ export default function App() {
       <section id="where-to-buy">
         <WhereToBuy />
       </section>
+      <footer className="bg-[#f2e8e4] text-[#695c53] text-center py-2">
+        © 2025 Crocheted by Carisse. All rights reserved.
+      </footer>
     </div>
   );
 }
