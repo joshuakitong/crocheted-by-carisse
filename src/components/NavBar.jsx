@@ -66,21 +66,21 @@ export default function Navbar() {
           <a
             href="#yarn-mixes"
             onClick={() => setIsOpen(false)}
-            className={linkClasses("yarn-mixes")}
+            className={`block ${linkClasses("yarn-mixes")}`}
           >
             Yarn Mixes
           </a>
           <a
             href="#crocheted-items"
             onClick={() => setIsOpen(false)}
-            className={linkClasses("crocheted-items")}
+            className={`block ${linkClasses("crocheted-items")}`}
           >
             Crocheted Items
           </a>
           <a
             href="#where-to-buy"
             onClick={() => setIsOpen(false)}
-            className={linkClasses("where-to-buy")}
+            className={`block ${linkClasses("where-to-buy")}`}
           >
             Where to Buy
           </a>
