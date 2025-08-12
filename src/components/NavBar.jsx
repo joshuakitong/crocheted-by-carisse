@@ -1,9 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
+import { gsap } from "gsap";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(
+      navRef.current,
+      { autoAlpha: 0, y: -30 },
+      { autoAlpha: 1, y: 0, delay: 2.1, duration: 0.7, ease: "power2.out" }
+    );
+  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -28,7 +38,10 @@ export default function Navbar() {
       : "text-[#695c53] hover:text-[#e94326] font-semibold transition";
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-[#f2e8e4] shadow z-50">
+    <nav
+      ref={navRef}
+      className="fixed top-0 left-0 w-full bg-[#f2e8e4] shadow z-50 opacity-0"
+    >
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         <a onClick={() => setIsOpen(false)} href="#home" className="flex items-center">
           <img
