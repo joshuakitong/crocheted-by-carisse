@@ -86,18 +86,36 @@ export default function YarnMixes() {
     }
   }, [modalIndex, modalGroup]);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll(".animate-section");
+
+    function checkVisibility() {
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.75) {
+          el.classList.add("visible");
+        }
+      });
+    }
+
+    checkVisibility();
+    window.addEventListener("scroll", checkVisibility);
+
+    return () => window.removeEventListener("scroll", checkVisibility);
+  }, []);
+
   return (
     <div className="pt-16 px-4 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold text-[#e94326] mb-6 text-center">
+      <h1 className="animate-section text-4xl font-bold text-[#e94326] mb-6 text-center">
         Fine Cotton Yarn Mixes
       </h1>
 
-      <h2 className="text-2xl font-semibold text-[#eb9803] mb-2 text-center">Ombre Mixes</h2>
-      <p className="text-[#695c53] mb-8 text-center">
+      <h2 className="animate-section text-2xl font-semibold text-[#eb9803] mb-2 text-center">Ombre Mixes</h2>
+      <p className="animate-section text-[#695c53] mb-8 text-center">
         12 ply fine cotton | Sportweight (approximately 350g/1400m) | 390 PHP / 8 USD
       </p>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-16 mb-12">
+      <div className="animate-section grid grid-cols-1 lg:grid-cols-2 gap-y-16 mb-12">
         {ombreMixes.map((mix, i) => (
           <div key={mix.name} className="relative flex justify-center items-center">
             <div
@@ -125,11 +143,11 @@ export default function YarnMixes() {
         ))}
       </div>
 
-      <h2 className="text-2xl font-semibold text-[#eb9803] mb-2 text-center">Regular Mixes</h2>
-      <p className="text-[#695c53] mb-8 text-center">
+      <h2 className="animate-section text-2xl font-semibold text-[#eb9803] mb-2 text-center">Regular Mixes</h2>
+      <p className="animate-section text-[#695c53] mb-8 text-center">
         12 ply fine cotton | Sportweight (approximately 250g/1000m) | 290 PHP / 6 USD
       </p>
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+      <div className="animate-section grid grid-cols-1 xl:grid-cols-3 gap-8">
         {regularMixes.map((mix, i) => (
           <div
             key={mix.name}

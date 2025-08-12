@@ -1,6 +1,26 @@
+import { useEffect } from "react";
+
 export default function WhereToBuy() {
+  useEffect(() => {
+    const elements = document.querySelectorAll(".animate-section");
+
+    function checkVisibility() {
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.75) {
+          el.classList.add("visible");
+        }
+      });
+    }
+
+    checkVisibility();
+    window.addEventListener("scroll", checkVisibility);
+
+    return () => window.removeEventListener("scroll", checkVisibility);
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen/2 text-center px-6 py-16">
+    <div className="animate-section flex flex-col items-center justify-center min-h-screen/2 text-center px-6 py-16">
       <h1 className="text-4xl font-bold text-[#e94326] mb-4">Where to buy?</h1>
       <p className="max-w-xl mb-8 text-[#695c53]">
         You can buy our handmade yarn mixes or made-to-order crocheted items from our{" "}

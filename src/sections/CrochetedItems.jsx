@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FullscreenModal from "../components/FullscreenModal";
 
 export default function CrochetedItems() {
@@ -41,7 +41,7 @@ export default function CrochetedItems() {
 
   const renderGrid = (items, group, isLast) => (
     <div
-      className={`grid grid-cols-1 xl:grid-cols-3 gap-8 ${
+      className={`animate-section grid grid-cols-1 xl:grid-cols-3 gap-8 ${
         !isLast ? "mb-12" : ""
       }`}
     >
@@ -64,18 +64,36 @@ export default function CrochetedItems() {
     </div>
   );
 
+  useEffect(() => {
+    const elements = document.querySelectorAll(".animate-section");
+
+    function checkVisibility() {
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.75) {
+          el.classList.add("visible");
+        }
+      });
+    }
+
+    checkVisibility();
+    window.addEventListener("scroll", checkVisibility);
+
+    return () => window.removeEventListener("scroll", checkVisibility);
+  }, []);
+
   return (
     <div className="pt-16 px-4 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold text-[#e94326] mb-6 text-center">
+      <h1 className="animate-section text-4xl font-bold text-[#e94326] mb-6 text-center">
         Crocheted Items
       </h1>
 
-      <h2 className="text-2xl font-semibold text-[#eb9803] mb-2 text-center">
+      <h2 className="animate-section text-2xl font-semibold text-[#eb9803] mb-2 text-center">
         by our beloved customers
       </h2>
       {renderGrid(customers, "customers", false)}
 
-      <h2 className="text-2xl font-semibold text-[#eb9803] mb-2 text-center">
+      <h2 className="animate-section text-2xl font-semibold text-[#eb9803] mb-2 text-center">
         by Carisse
       </h2>
       {renderGrid(carisse, "carisse", true)}
