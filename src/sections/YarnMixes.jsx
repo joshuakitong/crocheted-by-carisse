@@ -108,26 +108,26 @@ export default function YarnMixes() {
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex flex-col items-center justify-center z-50 p-4">
-          <div className="text-white text-2xl font-bold mb-4">{modalTitle}</div>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50 p-4">
+          <div className="text-white rounded-xl py-2 px-4 bg-black/50 text-2xl font-bold mb-4">{modalTitle}</div>
           <div className="relative flex items-center w-full max-w-4xl">
             {modalImages.length > 1 && (
-              <button onClick={prevImage} className="absolute left-0 p-2 text-white">
+              <button onClick={prevImage} className="absolute left-0 p-2 text-white cursor-pointer">
                 <ChevronLeft size={40} />
               </button>
             )}
             <img
               src={`${import.meta.env.BASE_URL}${modalImages[modalIndex]}`}
               alt={modalTitle}
-              className="max-h-[80vh] mx-auto rounded-xl"
+              className="max-h-[80vh] mx-auto rounded-2xl"
             />
             {modalImages.length > 1 && (
-              <button onClick={nextImage} className="absolute right-0 p-2 text-white">
+              <button onClick={nextImage} className="absolute right-0 p-2 text-white cursor-pointer">
                 <ChevronRight size={40} />
               </button>
             )}
           </div>
-          <button onClick={closeModal} className="absolute top-4 right-4 text-white">
+          <button onClick={closeModal} className="absolute top-4 right-4 text-white cursor-pointer">
             <X size={32} />
           </button>
         </div>
