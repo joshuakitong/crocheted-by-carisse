@@ -125,12 +125,12 @@ export default function YarnMixes() {
               <img
                 src={`${import.meta.env.BASE_URL}${mix.images[1]}`}
                 alt={mix.name}
-                className="rounded-xl rotate-2 absolute w-96 sm:w-128 translate-x-4 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
+                className="rounded-xl rotate-2 absolute w-78 sm:w-128 translate-x-4 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
               />
               <img
                 src={`${import.meta.env.BASE_URL}${mix.images[0]}`}
                 alt={mix.name}
-                className="rounded-xl -rotate-2 w-96 sm:w-128 -translate-x-4 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
+                className="rounded-xl -rotate-2 w-78 sm:w-128 -translate-x-4 transform group-hover:translate-x-0 group-hover:rotate-0 transition duration-300"
               />
               <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 p-6 bg-black/50 rounded-lg text-white text-center py-1 text-sm font-semibold z-10">
                 {mix.name}
