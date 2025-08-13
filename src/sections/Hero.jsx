@@ -7,18 +7,37 @@ export default function Hero() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (
-      !logoRef.current ||
-      !descRef.current ||
-      !containerRef.current
-    ) return;
+    if (!logoRef.current || !descRef.current || !containerRef.current) return;
 
-    const timeline = gsap.timeline({ defaults: { ease: "power1.out" } });
-    timeline.fromTo(logoRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, immediateRender: false })
-      .fromTo(descRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, immediateRender: false }, "+=0.01")
-      .fromTo(containerRef.current, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.7, immediateRender: false }, "+=0.01");
+    const logoImg = logoRef.current;
+    const backgroundUrl = `${import.meta.env.BASE_URL}images/herobackground.jpg`;
 
-    return () => timeline.kill();
+    const loadImage = (srcOrElement) =>
+      new Promise((resolve) => {
+        if (typeof srcOrElement === "string") {
+          const img = new Image();
+          img.src = srcOrElement;
+          img.onload = resolve;
+          img.onerror = resolve;
+        } else if (srcOrElement?.complete) {
+          resolve();
+        } else if (srcOrElement) {
+          srcOrElement.onload = resolve;
+          srcOrElement.onerror = resolve;
+        } else {
+          resolve();
+        }
+      });
+
+    // Start animation only after images are loaded
+    Promise.all([loadImage(logoImg), loadImage(backgroundUrl)]).then(() => {
+      const timeline = gsap.timeline({ defaults: { ease: "power1.out" } });
+      timeline.fromTo(logoRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, immediateRender: false })
+        .fromTo(descRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, immediateRender: false }, "+=0.01")
+        .fromTo(containerRef.current, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.7, immediateRender: false }, "+=0.01");
+
+      return () => timeline.kill();
+    });
   }, []);
 
   return (
@@ -44,14 +63,10 @@ export default function Hero() {
         </div>
 
         <div ref={containerRef} className="flex-1 text-center md:text-left bg-white/80 p-6 md:p-8 rounded-xl opacity-0">
-          <h2
-            className="text-2xl md:text-3xl font-bold text-[#e94326] leading-snug"
-          >
+          <h2 className="text-2xl md:text-3xl font-bold text-[#e94326] leading-snug">
             Welcome Crocheters & Yarn Lovers
           </h2>
-          <p
-            className="mt-4 text-lg text-[#695c53] leading-relaxed"
-          >
+          <p className="mt-4 text-lg text-[#695c53] leading-relaxed">
             Whether you're searching for the perfect fine cotton yarn to inspire your next project or
             a beautifully handcrafted crochet piece made just for you — you've come to the right place!
           </p>
